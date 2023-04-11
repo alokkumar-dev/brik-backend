@@ -4,7 +4,7 @@ const postSchema = new mongoose.Schema(
   {
     title: { type: String, require: true },
     details: { type: String, require: true },
-  },
+  }, 
   {
     versionKey: false,
     timestamps: true,
