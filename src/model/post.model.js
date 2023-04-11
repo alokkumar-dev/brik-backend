@@ -2,9 +2,15 @@ const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema(
   {
-    title: { type: String, require: true },
-    details: { type: String, require: true },
-  }, 
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    postId: { type: String, required: false },
+    title: { type: String, required: true },
+    details: { type: String, required: true },
+  },
   {
     versionKey: false,
     timestamps: true,

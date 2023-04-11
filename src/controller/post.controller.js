@@ -16,9 +16,9 @@ router.post("", async (req, res) => {
 
 //  get api request
 
-router.get("", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const post = await Post.find().lean().exec();
+    const post = await Post.find({ userId: req.params.id }).lean().exec();
     return res.status(200).send(post);
   } catch (error) {
     return res.status(500).send(error.message);
@@ -27,11 +27,15 @@ router.get("", async (req, res) => {
 
 //  patch(update) api request
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id/:userId", async (req, res) => {
   try {
-    const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    })
+    const post = await Post.findByIdAndUpdate(
+      { userId: req.params.userId, _id: req.params.id },
+      req.body,
+      {
+        new: true,
+      }
+    )
       .lean()
       .exec();
     return res.status(200).send(post);
@@ -42,9 +46,14 @@ router.patch("/:id", async (req, res) => {
 
 //  delete api request
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id/:userId", async (req, res) => {
   try {
-    const post = await Post.findByIdAndDelete(req.params.id).lean().exec();
+    const post = await Post.findByIdAndDelete({
+      userId: req.params.userId,
+      _id: req.params.id,
+    })
+      .lean()
+      .exec();
     return res.status(200).send(post);
   } catch (error) {
     return res.status(500).send(error.message);

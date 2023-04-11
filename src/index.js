@@ -4,11 +4,14 @@ const app = express();
 const PostController = require("./controller/post.controller");
 const cors = require('cors')
 const port = process.env.PORT || 8080;
+const {login,  register} = require('./controller/auth.controller');
 
 
 app.use(cors());
 app.use(express.json());
 app.use("/post", PostController); 
+app.post("/login", login); 
+app.post("/register", register); 
 
 
 app.listen(port, async () => {
