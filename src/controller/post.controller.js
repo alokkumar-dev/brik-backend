@@ -16,6 +16,17 @@ router.post("", async (req, res) => {
 
 //  get api request
 
+router.get("/", async (req, res) => {
+  try {
+    const post = await Post.find().lean().exec();
+    return res.status(200).send(post);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
+//  get api request
+
 router.get("/:id", async (req, res) => {
   try {
     const post = await Post.find({ userId: req.params.id }).lean().exec();
