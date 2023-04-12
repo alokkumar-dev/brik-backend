@@ -62,7 +62,7 @@ router.patch("/:id", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const post = await Post.findOne(req.params.id).lean().exec();
+    const post = await Post.findById(req.params.id).lean().exec();
     return res.status(200).send(post);
   } catch (error) {
     return res.status(500).send(error.message);
