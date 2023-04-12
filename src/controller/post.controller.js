@@ -47,22 +47,17 @@ router.delete("/:id", async (req, res) => {
 
 //  patch(update) api request
 
-// router.patch("/:id/:userId", async (req, res) => {
-//   try {
-//     const post = await Post.findByIdAndUpdate(
-//       { userId: req.params.userId, _id: req.params.id },
-//       req.body,
-//       {
-//         new: true,
-//       }
-//     )
-//       .lean()
-//       .exec();
-//     return res.status(200).send(post);
-//   } catch (error) {
-//     return res.status(500).send(error.message);
-//   }
-// });
-
+router.patch("/:id", async (req, res) => {
+  try {
+    const post = await Post.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    })
+      .lean()
+      .exec();
+    return res.status(200).send(post);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
 
 module.exports = router;
