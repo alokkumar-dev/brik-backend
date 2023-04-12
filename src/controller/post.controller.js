@@ -27,9 +27,18 @@ router.get("/", async (req, res) => {
 
 //  get api request
 
-router.get("/:id", async (req, res) => {
+// router.get("/:id", async (req, res) => {
+//   try {
+//     const post = await Post.find({ userId: req.params.id }).lean().exec();
+//     return res.status(200).send(post);
+//   } catch (error) {
+//     return res.status(500).send(error.message);
+//   }
+// });
+
+router.delete("/:id", async (req, res) => {
   try {
-    const post = await Post.find({ userId: req.params.id }).lean().exec();
+    const post = await Post.findByIdAndDelete(req.params.id).lean().exec();
     return res.status(200).send(post);
   } catch (error) {
     return res.status(500).send(error.message);
@@ -38,37 +47,22 @@ router.get("/:id", async (req, res) => {
 
 //  patch(update) api request
 
-router.patch("/:id/:userId", async (req, res) => {
-  try {
-    const post = await Post.findByIdAndUpdate(
-      { userId: req.params.userId, _id: req.params.id },
-      req.body,
-      {
-        new: true,
-      }
-    )
-      .lean()
-      .exec();
-    return res.status(200).send(post);
-  } catch (error) {
-    return res.status(500).send(error.message);
-  }
-});
+// router.patch("/:id/:userId", async (req, res) => {
+//   try {
+//     const post = await Post.findByIdAndUpdate(
+//       { userId: req.params.userId, _id: req.params.id },
+//       req.body,
+//       {
+//         new: true,
+//       }
+//     )
+//       .lean()
+//       .exec();
+//     return res.status(200).send(post);
+//   } catch (error) {
+//     return res.status(500).send(error.message);
+//   }
+// });
 
-//  delete api request
-
-router.delete("/:id/:userId", async (req, res) => {
-  try {
-    const post = await Post.findByIdAndDelete({
-      userId: req.params.userId,
-      _id: req.params.id,
-    })
-      .lean()
-      .exec();
-    return res.status(200).send(post);
-  } catch (error) {
-    return res.status(500).send(error.message);
-  }
-});
 
 module.exports = router;
